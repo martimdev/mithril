@@ -2,8 +2,7 @@ import pygame
 from pygame import Rect
 
 
-def empty_function():
-    pass
+def empty_function(): pass
 
 
 class Node:

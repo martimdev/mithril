@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import QUIT, MOUSEBUTTONDOWN, MOUSEBUTTONUP
+from mithril.colors import BLACK
 
 
 class Application:
@@ -9,10 +10,17 @@ class Application:
         self.scene = scene
         self.screen = pygame.display.set_mode(self.resolution)
         self.running = False
+        pygame.init()
 
     def change_scene(self):
         for node in self.scene.nodes:
             node.draw(self.screen)
+
+    def set_background_color(self, color):
+        self.screen.fill(color)
+        myfont = pygame.font.SysFont("arial", 15)
+        label = myfont.render("dusauiadiuads", 1, BLACK)
+        self.screen.blit(label, (1, 1))
 
     def loop(self):
         while self.running:
@@ -30,7 +38,6 @@ class Application:
             pygame.display.update()
 
     def run(self):
-        pygame.init()
         pygame.display.set_caption(self.title)
         self.running = True
         self.loop()
