@@ -12,7 +12,7 @@ class Application:
 
     def change_scene(self):
         for node in self.scene.nodes:
-            pygame.draw.rect(self.screen, node.color, (node.x, node.y, node.width, node.height))
+            node.draw(self.screen)
 
     def loop(self):
         while self.running:
@@ -23,6 +23,7 @@ class Application:
 
     def run(self):
         pygame.init()
+        pygame.display.set_caption(self.title)
         self.running = True
         self.loop()
 
