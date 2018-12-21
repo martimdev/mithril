@@ -1,5 +1,5 @@
 import pygame
-from pygame.locals import QUIT
+from pygame.locals import QUIT, MOUSEBUTTONDOWN, MOUSEBUTTONUP
 
 
 class Application:
@@ -19,6 +19,14 @@ class Application:
             for event in pygame.event.get():
                 if event.type == QUIT:
                     self.running = False
+                if event.type == MOUSEBUTTONDOWN:
+                    for node in self.scene.nodes:
+                        if node.rect.collidepoint(pygame.mouse.get_pos()):
+                            node.on_mouse_button_down()
+                if event.type == MOUSEBUTTONUP:
+                    for node in self.scene.nodes:
+                        if node.rect.collidepoint(pygame.mouse.get_pos()):
+                            node.on_mouse_button_up()
             pygame.display.update()
 
     def run(self):

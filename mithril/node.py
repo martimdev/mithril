@@ -2,6 +2,10 @@ import pygame
 from pygame import Rect
 
 
+def empty_function():
+    pass
+
+
 class Node:
     def __init__(self, color, x, y, width, height, parent=None):
         self.x = x
@@ -10,6 +14,9 @@ class Node:
         self.height = height
         self.color = color
         self.nodes = []
+        self.on_mouse_button_down = empty_function
+        self.on_mouse_button_up = empty_function
+
         if parent is None:
             self.rect = Rect(
                 self.x,
