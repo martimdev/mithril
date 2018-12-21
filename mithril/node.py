@@ -21,6 +21,13 @@ class Node(Rect):
         for sub_node in self.sub_nodes:
             sub_node.rect.move_ip(x, y)
 
+    def move_to(self, x, y):
+        self.x = x
+        self.y = y
+        for sub_node in self.sub_nodes:
+            sub_node.rect.x = sub_node.x + x
+            sub_node.rect.y = sub_node.y + y
+
 
 class SubNode:
     def __init__(self, color, x, y, width, height, parent):
