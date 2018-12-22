@@ -37,7 +37,7 @@ class Node(ABC):
         return pos[0] in range(
             self.x,
             self.x + self.width
-        ) or pos[1] in range(
+        ) and pos[1] in range(
             self.y,
             self.x + self.height
         )
