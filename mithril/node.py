@@ -16,13 +16,26 @@ class Node(ABC):
         self.on_mouse_button_up = empty_function
 
     @abstractmethod
-    def get_width(self): pass
+    def get_width(self):
+        pass
 
     @abstractmethod
-    def get_height(self): pass
+    def get_height(self):
+        pass
 
     @abstractmethod
-    def draw(self, screen): return
+    def draw(self, screen):
+        pass
+
+    def has_parent(self):
+        return self.parent is not None
+
+    def update(self):
+        if self.has_parent():
+            self.x = self.parent.x + self.relative_x
+            self.y = self.parent.y + self.relative_y
+        for node in self.nodes:
+            node.update()
 
     def add_node(self, node):
         node.parent = self
@@ -31,9 +44,6 @@ class Node(ABC):
     def move_to(self, x, y):
         self.x = x
         self.y = y
-        for node in self.nodes:
-            node.x = node.x + x
-            node.y = node.y + y
 
     def is_colliding(self, pos):
         return pos[0] in range(

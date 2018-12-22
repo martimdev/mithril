@@ -29,6 +29,7 @@ class Application:
     def update_scene(self):
         self.clear()
         for node in self.scene.nodes:
+            node.update()
             node.draw(self.screen)
 
     def set_background_color(self, color):
