@@ -2,7 +2,7 @@
 from mithril import Application, Scene
 
 # Creating a basic application
-app = Application("Tutorial", (1280, 720), Scene())
+app = Application("Example01", (1280, 720), Scene())
 
 # Running application
 app.run()
