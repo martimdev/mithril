@@ -25,11 +25,11 @@ class Application:
                     self.running = False
                 if event.type == MOUSEBUTTONDOWN:
                     for node in self.scene.nodes:
-                        if node.rect.collidepoint(pygame.mouse.get_pos()):
+                        if node.is_colliding(pygame.mouse.get_pos()):
                             node.on_mouse_button_down()
                 if event.type == MOUSEBUTTONUP:
                     for node in self.scene.nodes:
-                        if node.rect.collidepoint(pygame.mouse.get_pos()):
+                        if node.is_colliding(pygame.mouse.get_pos()):
                             node.on_mouse_button_up()
             pygame.display.update()
 

@@ -1,14 +1,16 @@
-import pygame
-from pygame import Rect
+from abc import ABC, abstractmethod
 
 
 def empty_function(): pass
 
 
-class Node:
-    def __init__(self, color, x, y, width, height, parent=None):
-        self.x = x
-        self.y = y
+class Node(ABC):
+    def __init__(self, color, relative_x, relative_y, width, height):
+        self.parent = None
+        self.x = relative_x
+        self.y = relative_y
+        self.relative_x = relative_x
+        self.relative_y = relative_y
         self.width = width
         self.height = height
         self.color = color
@@ -16,37 +18,26 @@ class Node:
         self.on_mouse_button_down = empty_function
         self.on_mouse_button_up = empty_function
 
-        if parent is None:
-            self.rect = Rect(
-                self.x,
-                self.y,
-                self.width,
-                self.height
-            )
-        else:
-            self.rect = Rect(
-                parent.x + self.x,
-                parent.y + self.y,
-                self.width,
-                self.height
-            )
-
+    @abstractmethod
     def draw(self, screen):
-        pygame.draw.rect(screen, self.color, self)
-        for node in self.nodes:
-            node.draw(screen)
+        return
 
-    def add_node(self, sub_node):
-        self.nodes.append(sub_node)
-
-    def move(self, x, y):
-        self.rect.move_ip(x, y)
-        for node in self.nodes:
-            node.rect.move_ip(x, y)
+    def add_node(self, node):
+        node.parent = self
+        self.nodes.append(node)
 
     def move_to(self, x, y):
-        self.rect.x = x
-        self.rect.y = y
+        self.x = x
+        self.y = y
         for node in self.nodes:
-            node.rect.x = node.x + x
-            node.rect.y = node.y + y
+            node.x = node.x + x
+            node.y = node.y + y
+
+    def is_colliding(self, pos):
+        return pos[0] in range(
+            self.x,
+            self.x + self.width
+        ) or pos[1] in range(
+            self.y,
+            self.x + self.height
+        )
