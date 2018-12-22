@@ -2,7 +2,7 @@ import math
 from abc import ABC
 
 import pygame
-from pygame import Rect
+from pygame import Rect, gfxdraw
 
 from mithril import Node
 
@@ -40,13 +40,18 @@ class Rectangle(Polygon, Rect):
 
 
 class Circle(Shape):
-    def __init__(self, relative_x, relative_y, color, radius):
+    def __init__(self, relative_x, relative_y, color, radius, antialias=True):
         super().__init__(relative_x, relative_y, color)
         self.radius = radius
+        self.antialias = antialias
 
     def is_colliding(self, pos):
         distance = math.hypot(pos[0] - self.x, pos[1] - self.y)
         return distance <= self.radius
 
     def draw(self, screen):
-        pygame.draw.circle(screen, self.color, (self.relative_x, self.relative_y), self.radius)
+        if self.antialias:
+            gfxdraw.aacircle(screen, self.relative_x, self.relative_x, self.radius, self.color)
+            pygame.gfxdraw.filled_circle(screen, self.relative_x, self.relative_y, self.radius, self.color)
+        else:
+            pygame.draw.circle(screen, self.color, (self.relative_x, self.relative_y), self.radius)
