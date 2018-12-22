@@ -23,13 +23,16 @@ class Application:
         self.scene = scene
         self.screen = pygame.display.set_mode(self.resolution)
         self.running = False
+        self.background_color = ()
         pygame.init()
 
-    def change_scene(self):
+    def update_scene(self):
+        self.clear()
         for node in self.scene.nodes:
             node.draw(self.screen)
 
     def set_background_color(self, color):
+        self.background_color = color
         self.screen.fill(color)
 
     def loop(self):
@@ -42,6 +45,7 @@ class Application:
                 if event.type == MOUSEBUTTONUP:
                     mouse_button_up_handler(self.scene.nodes)
             pygame.display.update()
+            self.update_scene()
 
     def run(self):
         pygame.display.set_caption(self.title)
@@ -50,3 +54,6 @@ class Application:
 
     def exit(self):
         self.running = False
+
+    def clear(self):
+        self.screen.fill(self.background_color)
