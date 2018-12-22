@@ -20,11 +20,7 @@ class Node(ABC):
         self.on_mouse_exit = empty_function
 
     @abstractmethod
-    def get_width(self):
-        pass
-
-    @abstractmethod
-    def get_height(self):
+    def is_colliding(self, pos):
         pass
 
     @abstractmethod
@@ -48,12 +44,3 @@ class Node(ABC):
     def move_to(self, x, y):
         self.x = x
         self.y = y
-
-    def is_colliding(self, pos):
-        return pos[0] in range(
-            self.x,
-            self.x + self.get_width()
-        ) and pos[1] in range(
-            self.y,
-            self.x + self.get_height()
-        )

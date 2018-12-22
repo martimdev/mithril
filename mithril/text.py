@@ -16,3 +16,12 @@ class Label(Node):
 
     def get_height(self):
         return self.surface.get_height()
+
+    def is_colliding(self, pos):
+        return pos[0] in range(
+            self.x,
+            self.x + self.get_width()
+        ) and pos[1] in range(
+            self.y,
+            self.x + self.get_height()
+        )

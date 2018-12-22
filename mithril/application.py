@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import QUIT, MOUSEBUTTONDOWN, MOUSEBUTTONUP, MOUSEMOTION
 from mithril.colors import BLACK
 
+
 def mouse_button_down_handler(nodes):
     for node in nodes:
         if node.is_colliding(pygame.mouse.get_pos()):
