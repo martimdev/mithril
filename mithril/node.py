@@ -14,6 +14,10 @@ class Node(ABC):
         self.nodes = []
         self.on_mouse_button_down = empty_function
         self.on_mouse_button_up = empty_function
+        self.mouse_hover = False
+        self.on_mouse_hover = empty_function
+        self.on_mouse_enter = empty_function
+        self.on_mouse_exit = empty_function
 
     @abstractmethod
     def get_width(self):

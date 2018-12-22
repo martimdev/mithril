@@ -1,5 +1,5 @@
 import pygame
-from pygame.locals import QUIT, MOUSEBUTTONDOWN, MOUSEBUTTONUP
+from pygame.locals import QUIT, MOUSEBUTTONDOWN, MOUSEBUTTONUP, MOUSEMOTION
 
 
 def mouse_button_down_handler(nodes):
@@ -14,6 +14,25 @@ def mouse_button_up_handler(nodes):
         if node.is_colliding(pygame.mouse.get_pos()):
             node.on_mouse_button_up()
             mouse_button_up_handler(node.nodes)
+
+
+def mouse_motion_handler(nodes):
+    for node in nodes:
+        if node.is_colliding(pygame.mouse.get_pos()):
+            if not node.mouse_hover:
+                node.mouse_hover = True
+                node.on_mouse_enter()
+            mouse_motion_handler(node.nodes)
+        elif node.mouse_hover:
+            node.mouse_hover = False
+            node.on_mouse_exit()
+
+
+def mouse_hover_handler(nodes):
+    for node in nodes:
+        if node.mouse_hover:
+            node.on_mouse_hover()
+            mouse_hover_handler(node.nodes)
 
 
 class Application:
@@ -45,6 +64,9 @@ class Application:
                     mouse_button_down_handler(self.scene.nodes)
                 if event.type == MOUSEBUTTONUP:
                     mouse_button_up_handler(self.scene.nodes)
+                if event.type == MOUSEMOTION:
+                    mouse_motion_handler(self.scene.nodes)
+            mouse_hover_handler(self.scene.nodes)
             pygame.display.update()
             self.update_scene()
 
