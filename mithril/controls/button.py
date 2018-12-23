@@ -1,7 +1,7 @@
 import pygame
 
 from mithril.shape import RoundedRectangle
-from mithril.text import Label
+from mithril.controls.text import Label
 
 DEFAULT_COLOR = (229, 229, 229)
 DEFAULT_HOVER_COLOR = (233, 233, 233)

@@ -6,7 +6,13 @@ class Label(Node):
     def __init__(self, relative_x, relative_y, font, text):
         super().__init__(relative_x, relative_y)
         self.color = BLACK
-        self.surface = font.render(text, True, self.color)
+        self.text = text
+        self.font = font
+        self.surface = self.font.render(self.text, True, self.color)
+
+    def update(self):
+        super().update()
+        self.surface = self.font.render(self.text, True, self.color)
 
     def draw(self, screen):
         screen.blit(self.surface, (self.x, self.y))

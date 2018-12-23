@@ -10,11 +10,17 @@ def mouse_button_down_handler(nodes):
             mouse_button_down_handler(node.nodes)
 
 
-def mouse_button_up_handler(nodes):
+def mouse_button_up_handler(nodes, event):
     for node in nodes:
         if node.is_colliding(pygame.mouse.get_pos()):
             node.on_mouse_button_up()
-            mouse_button_up_handler(node.nodes)
+            if event.button == 1:
+                node.on_mouse_left_click()
+            elif event.button == 2:
+                node.on_mouse_middle_click()
+            elif event.button == 3:
+                node.on_mouse_right_click()
+            mouse_button_up_handler(node.nodes, event)
 
 
 def mouse_motion_handler(nodes):
@@ -64,7 +70,7 @@ class Application:
                 if event.type == MOUSEBUTTONDOWN:
                     mouse_button_down_handler(self.scene.nodes)
                 if event.type == MOUSEBUTTONUP:
-                    mouse_button_up_handler(self.scene.nodes)
+                    mouse_button_up_handler(self.scene.nodes, event)
                 if event.type == MOUSEMOTION:
                     mouse_motion_handler(self.scene.nodes)
             mouse_hover_handler(self.scene.nodes)
