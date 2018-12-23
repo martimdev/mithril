@@ -1,10 +1,19 @@
 import math
-from abc import ABC
+from abc import ABC, abstractmethod
 
 import pygame
 from pygame import Rect, gfxdraw
 
 from mithril import Node
+
+
+class Bordered(ABC):
+    def __init__(self, border_color, border_width):
+        self.border_color = border_color
+        self.border_width = border_width
+
+    @abstractmethod
+    def draw_border(self, screen): pass
 
 
 class Shape(Node, ABC):
