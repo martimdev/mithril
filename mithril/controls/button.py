@@ -25,8 +25,8 @@ class Button(RoundedRectangle):
         self.border_color = border_color
         self.label = Label(0, 0, pygame.font.SysFont(DEFAULT_FONT_NAME, 13), self.name)
         self.add_node(self.label)
-        self.on_mouse_enter = self.mouse_enter_handler
-        self.on_mouse_exit = self.mouse_exit_handler
+        self.on_mouse_enter_handlers.append(self.mouse_enter_handler)
+        self.on_mouse_exit_handlers.append(self.mouse_exit_handler)
 
     def mouse_enter_handler(self):
         self.color = DEFAULT_HOVER_COLOR

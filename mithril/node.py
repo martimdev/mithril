@@ -1,12 +1,6 @@
 from abc import ABC, abstractmethod
 
 
-def mouse_empty_function(): pass
-
-
-def keyboard_empty_function(event): pass
-
-
 class Node(ABC):
     def __init__(self, relative_x, relative_y):
         self.parent = None
@@ -16,17 +10,17 @@ class Node(ABC):
         self.relative_y = relative_y
         self.selected = False
         self.nodes = []
-        self.on_mouse_button_down = mouse_empty_function
-        self.on_mouse_button_up = mouse_empty_function
+        self.on_mouse_button_down_handlers = []
+        self.on_mouse_button_up_handlers = []
         self.mouse_hover = False
-        self.on_mouse_hover = mouse_empty_function
-        self.on_mouse_enter = mouse_empty_function
-        self.on_mouse_exit = mouse_empty_function
-        self.on_mouse_left_click = mouse_empty_function
-        self.on_mouse_middle_click = mouse_empty_function
-        self.on_mouse_right_click = mouse_empty_function
-        self.on_key_down = keyboard_empty_function
-        self.on_key_up = keyboard_empty_function
+        self.on_mouse_hover_handlers = []
+        self.on_mouse_enter_handlers = []
+        self.on_mouse_exit_handlers = []
+        self.on_mouse_left_click_handlers = []
+        self.on_mouse_middle_click_handlers = []
+        self.on_mouse_right_click_handlers = []
+        self.on_key_down_handlers = []
+        self.on_key_up_handlers = []
 
     @abstractmethod
     def is_colliding(self, pos):

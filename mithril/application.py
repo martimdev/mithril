@@ -6,24 +6,29 @@ from mithril.colors import BLACK
 def mouse_button_down_handler(nodes):
     for node in nodes:
         if node.is_colliding(pygame.mouse.get_pos()):
-            node.on_mouse_button_down()
+            for handler in node.on_mouse_button_down_handlers:
+                handler()
             mouse_button_down_handler(node.nodes)
 
 
 def mouse_button_up_handler(scene, nodes, event):
     for node in nodes:
         if node.is_colliding(pygame.mouse.get_pos()):
-            node.on_mouse_button_up()
+            for handler in node.on_mouse_button_up_handlers:
+                handler()
             if node.has_parent():
                 scene.selected_node = node.get_supreme_parent()
             else:
                 scene.selected_node = node
             if event.button == 1:
-                node.on_mouse_left_click()
+                for handler in node.on_mouse_left_click_handlers:
+                    handler()
             elif event.button == 2:
-                node.on_mouse_middle_click()
+                for handler in node.on_mouse_middle_click_handlers:
+                    handler()
             elif event.button == 3:
-                node.on_mouse_right_click()
+                for handler in node.on_mouse_right_click_handlers:
+                    handler()
             mouse_button_up_handler(scene, node.nodes, event)
 
 
@@ -32,28 +37,33 @@ def mouse_motion_handler(nodes):
         if node.is_colliding(pygame.mouse.get_pos()):
             if not node.mouse_hover:
                 node.mouse_hover = True
-                node.on_mouse_enter()
+                for handler in node.on_mouse_enter_handlers:
+                    handler()
             mouse_motion_handler(node.nodes)
         elif node.mouse_hover:
             node.mouse_hover = False
-            node.on_mouse_exit()
+            for handler in node.on_mouse_exit_handlers:
+                handler()
 
 
 def mouse_hover_handler(nodes):
     for node in nodes:
         if node.mouse_hover:
-            node.on_mouse_hover()
+            for handler in node.on_mouse_hover_handlers:
+                handler()
             mouse_hover_handler(node.nodes)
 
 
 def key_down_handler(scene, event):
     if scene.selected_node is not None:
-        scene.selected_node.on_key_down(event)
+        for handler in scene.selected_node.on_key_down_handlers:
+            handler(event)
 
 
 def key_up_handler(scene, event):
     if scene.selected_node is not None:
-        scene.selected_node.on_key_up(event)
+        for handler in scene.selected_node.on_key_up_handlers:
+            handler(event)
 
 
 class Application:
