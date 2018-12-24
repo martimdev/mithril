@@ -1,13 +1,12 @@
 import pygame
 
-from mithril.shape import RoundedRectangle, Bordered
-from mithril.controls.text import Label
+from mithril.graphics.shape import RoundedRectangle, Bordered
+from mithril.controls.label import Label
 
 DEFAULT_COLOR = (229, 229, 229)
 DEFAULT_HOVER_COLOR = (233, 233, 233)
 DEFAULT_BORDER_COLOR = (181, 181, 181)
 DEFAULT_HOVER_BORDER_COLOR = (3, 158, 211)
-DEFAULT_FONT_NAME = 'SEGOE UI'
 
 
 class Button(RoundedRectangle, Bordered):
@@ -25,7 +24,7 @@ class Button(RoundedRectangle, Bordered):
         Bordered.__init__(self, border_color, border_width)
         self.name = name
         self.border_color = border_color
-        self.label = Label(0, 0, pygame.font.SysFont(DEFAULT_FONT_NAME, 13), self.name)
+        self.label = Label(self.name)
         self.add_node(self.label)
         self.on_mouse_enter_handlers.append(self.mouse_enter_handler)
         self.on_mouse_exit_handlers.append(self.mouse_exit_handler)

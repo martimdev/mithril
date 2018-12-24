@@ -1,6 +1,6 @@
 # Importing Application, Scene and Rectangle
 from mithril import Application, Scene
-from mithril.shape import Rectangle
+from mithril.graphics.shape import Rectangle
 from mithril.colors import WHITE
 
 # Creating a empty scene

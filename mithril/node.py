@@ -42,8 +42,8 @@ class Node(ABC):
 
     def update(self):
         if self.has_parent():
-            self.x = self.parent.x + self.relative_x
-            self.y = self.parent.y + self.relative_y
+            self.x = self.parent.relative_x + self.relative_x
+            self.y = self.parent.relative_y + self.relative_y
         for node in self.nodes:
             node.update()
 
