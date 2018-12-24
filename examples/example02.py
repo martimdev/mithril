@@ -1,13 +1,12 @@
 # Importing Application, Scene and Rectangle
 from mithril import Application, Scene
-from mithril.graphics.shape import Rectangle
-from mithril.colors import WHITE
+from mithril.graphics.base_shapes import Rectangle
 
 # Creating a empty scene
 scene = Scene()
 
 # Creating a 100 x 50 white rectangle
-rect = Rectangle(100, 100, 100, 50, WHITE)
+rect = Rectangle(100, 100, 100, 50, (255, 255, 255))
 
 # Adding rectangle to scene
 scene.add_node(rect)

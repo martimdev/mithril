@@ -1,7 +1,6 @@
 # Importing Application, Scene and Button
 from mithril import Application, Scene
 from mithril.controls.button import Button
-from mithril.colors import WHITE
 
 # Creating a empty scene
 scene = Scene()
@@ -19,6 +18,6 @@ button.on_mouse_button_up = lambda: print('Clicked')
 scene.add_node(button)
 
 # Setting background color
-app.set_background_color(WHITE)
+app.set_background_color((255, 255, 255))
 # Running application
 app.run()
