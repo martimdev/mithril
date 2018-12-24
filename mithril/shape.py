@@ -22,6 +22,36 @@ class Shape(Node, ABC):
         self.color = color
 
 
+class HorizontalLine(Shape):
+    def __init__(self, relative_x, relative_y, color, length):
+        super().__init__(relative_x, relative_y, color)
+        self.length = length
+
+    def is_colliding(self, pos):
+        return False
+
+    def draw(self, screen):
+        pygame.draw.line(screen, self.color,
+                         (self.relative_x, self.relative_y),
+                         (self.relative_x + self.length, self.relative_y)
+                         )
+
+
+class VerticalLine(Shape):
+    def __init__(self, relative_x, relative_y, color, length):
+        super().__init__(relative_x, relative_y, color)
+        self.length = length
+
+    def is_colliding(self, pos):
+        return False
+
+    def draw(self, screen):
+        pygame.draw.line(screen, self.color,
+                         (self.relative_x, self.relative_y),
+                         (self.relative_x, self.relative_y + self.length)
+                         )
+
+
 class Polygon(Shape, ABC):
     def __init__(self, relative_x, relative_y, color, width, height):
         super().__init__(relative_x, relative_y, color)
