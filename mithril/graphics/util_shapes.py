@@ -43,16 +43,16 @@ class RoundedRectangle(Shape):
         self.circle1.relative_y = self.relative_y + self.radius
         self.circle1.color = self.color
         self.circle1.border_color = self.color
-        self.circle2.relative_x = self.relative_x - self.radius + self.width
+        self.circle2.relative_x = self.relative_x - self.radius + self.width - 1
         self.circle2.relative_y = self.relative_y + self.radius
         self.circle2.color = self.color
         self.circle2.border_color = self.color
         self.circle3.relative_x = self.relative_x + self.radius
-        self.circle3.relative_y = self.relative_y - self.radius + self.height
+        self.circle3.relative_y = self.relative_y - self.radius + self.height - 1
         self.circle3.color = self.color
         self.circle3.border_color = self.color
-        self.circle4.relative_x = self.relative_x - self.radius + self.width
-        self.circle4.relative_y = self.relative_y - self.radius + self.height
+        self.circle4.relative_x = self.relative_x - self.radius + self.width - 1
+        self.circle4.relative_y = self.relative_y - self.radius + self.height - 1
         self.circle4.color = self.color
         self.circle4.border_color = self.color
 
