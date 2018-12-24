@@ -1,6 +1,7 @@
 import pygame
 
-from mithril.graphics.shape import RoundedRectangle, Bordered
+from mithril.graphics.util_shapes import RoundedRectangle
+from mithril.graphics.shape import Bordered
 from mithril.controls.label import Label
 
 DEFAULT_COLOR = (229, 229, 229)

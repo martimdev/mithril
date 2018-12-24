@@ -1,6 +1,5 @@
 import pygame
 from pygame.locals import QUIT, MOUSEBUTTONDOWN, MOUSEBUTTONUP, MOUSEMOTION, KEYDOWN, KEYUP
-from mithril.colors import BLACK
 
 
 def mouse_button_down_handler(nodes):
@@ -73,7 +72,7 @@ class Application:
         self.scene = scene
         self.screen = pygame.display.set_mode(self.resolution)
         self.running = False
-        self.background_color = BLACK
+        self.background_color = (0, 0, 0)
         pygame.init()
 
     def update_scene(self):
