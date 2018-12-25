@@ -100,7 +100,6 @@ class Application:
                     key_down_handler(self.scene, event)
                 if event.type == KEYUP:
                     key_up_handler(self.scene, event)
-
             mouse_hover_handler(self.scene.nodes)
             pygame.display.update()
             self.update_scene()
