@@ -1,3 +1,5 @@
+import pygame
+
 from mithril.controls.label import Label
 from mithril.graphics.util_shapes import RoundedRectangle
 
@@ -35,11 +37,17 @@ class TextField(RoundedRectangle):
         self.border.color = DEFAULT_BORDER_COLOR
 
     def key_down_handler(self, event):
-        self.write_char(event.unicode)
+        if event.key == pygame.K_BACKSPACE:
+            self.delete_last_char()
+        else:
+            self.write_char(event.unicode)
 
     def delete_last_char(self):
         self.label.text = self.label.text[:-1]
         self.text = self.text[:-1]
+        if self.width > self.label.get_width() + self.spacing and len(self.text) > len(self.label.text):
+            lent = len(self.text) - len(self.label.text)
+            self.label.text = self.text[lent - 1:]
 
     def write_char(self, char):
         self.label.text += char
@@ -47,10 +55,10 @@ class TextField(RoundedRectangle):
 
     def update(self):
         super().update()
-        self.label.relative_x = self.spacing
-        self.label.relative_y = ((self.height - self.label.get_height()) // 2) - 1
         if self.label.get_width() + self.spacing > self.width:
             self.label.text = self.label.text[1:]
+        self.label.relative_x = self.spacing
+        self.label.relative_y = ((self.height - self.label.get_height()) // 2) - 1
 
     def draw(self, screen):
         super().draw(screen)
