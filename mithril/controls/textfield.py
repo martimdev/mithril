@@ -21,6 +21,8 @@ class TextField(RoundedRectangle):
                  caret_size=14,
                  caret_color=(0, 0, 0),
                  caret_show_time=0.5,
+                 delete_delay=0.5,
+                 delete_speed=0.04,
                  spacing=5,
                  radius=4
                  ):
@@ -33,11 +35,16 @@ class TextField(RoundedRectangle):
         self.spacing = spacing
         self.caret_showing = False
         self.caret_timer = datetime.datetime.utcnow() + datetime.timedelta(seconds=self.caret_show_time)
+        self.deleting = False
+        self.delete_delay = delete_delay
+        self.delete_speed = delete_speed
+        self.delete_timer = datetime.datetime.utcnow() + datetime.timedelta(seconds=self.delete_delay)
         self.label = Label(self.text)
         self.caret = VerticalLine(0, 0, 0, 0)
         self.add_node(self.label)
         self.add_node(self.caret)
         self.on_key_down_handlers.append(self.key_down_handler)
+        self.on_key_up_handlers.append(self.key_up_handler)
         self.on_mouse_enter_handlers.append(self.mouse_enter_handler)
         self.on_mouse_exit_handlers.append(self.mouse_exit_handler)
 
@@ -50,8 +57,15 @@ class TextField(RoundedRectangle):
     def key_down_handler(self, event):
         if event.key == pygame.K_BACKSPACE:
             self.delete_last_char()
+            if datetime.datetime.utcnow() > self.delete_timer:
+                self.deleting = True
+                self.delete_timer = datetime.datetime.utcnow() + datetime.timedelta(seconds=self.delete_delay)
         else:
             self.write_char(event.unicode)
+
+    def key_up_handler(self, event):
+        if event.key == pygame.K_BACKSPACE:
+            self.deleting = False
 
     def delete_last_char(self):
         self.label.text = self.label.text[:-1]
@@ -66,7 +80,9 @@ class TextField(RoundedRectangle):
 
     def update(self):
         super().update()
-        print(self.caret_showing)
+        if self.deleting and datetime.datetime.utcnow() > self.delete_timer:
+            self.delete_last_char()
+            self.delete_timer = datetime.datetime.utcnow() + datetime.timedelta(seconds=self.delete_speed)
         if self.label.get_width() + self.spacing > self.width:
             self.label.text = self.label.text[1:]
         if datetime.datetime.utcnow() > self.caret_timer:
